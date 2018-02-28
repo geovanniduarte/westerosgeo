@@ -16,7 +16,7 @@ class HouseDetailViewController: UIViewController {
     @IBOutlet weak var sigilImageView: UIImageView!
     
     // Mark: - Properties
-    let model: House
+    var model: House
     
     // Mark: - Initialization
     init(model: House) {
@@ -35,6 +35,7 @@ class HouseDetailViewController: UIViewController {
     // Mark: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupUI()
         syncModelWithView()
     }
     
@@ -45,6 +46,38 @@ class HouseDetailViewController: UIViewController {
         sigilImageView.image = model.sigil.image
         wordsLabel.text = model.words
     }
+    
+    // Mark: - UI
+    func setupUI() {
+        let wikiButton = UIBarButtonItem(title: "Wiki", style: .plain , target: self, action: #selector(displayWiki))
+        let members = UIBarButtonItem(title: "Member", style: .plain, target: self, action: #selector(displayMembers))
+        navigationItem.rightBarButtonItems = [wikiButton, members]
+    }
+    
+    // lo que meta aqui debe ser compatible con objective c @objc
+    @objc func displayWiki() {
+        // Creamos el WikiVC
+        let wikiViewController = WikiViewController(model: model)
+        
+        // Hacemos push
+        navigationController?.pushViewController(wikiViewController, animated: true)
+    }
+    
+    @objc func displayMembers() {
+        let memberListViewController = MemberListViewController(model: model.sortedMember)
+        
+        navigationController?.pushViewController(memberListViewController, animated: true)
+    }
+    
+    
+}
+
+extension HouseDetailViewController: HouseListViewControllerDelegate {
+    func houseListViewController(_ vievController: HouseListViewController, didSelectHouse house: House) {
+        self.model = house
+        syncModelWithView()
+    }
+
 }
 
 

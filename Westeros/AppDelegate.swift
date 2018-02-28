@@ -25,16 +25,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Crear el modelo
         let houses = Repository.local.houses
 
-        // Creamos los combinadores
-        let tabBarViewController = UITabBarController()
+        // Creamos la tabla
+        let houseListViewController = HouseListViewController(model: houses)
+        let houseDetailViewControler = HouseDetailViewController(model: houses.first!)
         
-        tabBarViewController.viewControllers =
-            houses
-              .map{ HouseDetailViewController(model: $0) }
-              .map{ $0.wrappedInNavigation()}
+        houseListViewController.delegate = houseDetailViewControler
+        
+        let splitViewController: UISplitViewController = UISplitViewController()
+        splitViewController.viewControllers = [houseListViewController.wrappedInNavigation(), houseDetailViewControler.wrappedInNavigation()]
         
         // Asignamos el rootVC
-        window?.rootViewController = tabBarViewController
+        window?.rootViewController = splitViewController
         
         return true
     }
