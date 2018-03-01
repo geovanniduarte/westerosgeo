@@ -11,13 +11,15 @@ import XCTest
 class SeasonTests: XCTestCase {
     
     
-    let season1 : Season! = nil
-    let season2 : Season! = nil
+    var season1 : Season!
+    var season2 : Season!
     
     
     
     override func setUp() {
         super.setUp()
+        season1 = Season(name: "Season 1", launchDay: Date())
+        season2 = Season(name: "Season 2", launchDay: Date())
     }
     
     override func tearDown() {
@@ -25,6 +27,30 @@ class SeasonTests: XCTestCase {
     }
     
     func testSeasonEsquality() {
+        // identidad
+        XCTAssertEqual(season1, season1)
         
+        // igualdad
+        let newSeason1 = Season(name: "Season 1", launchDay: Date())
+        XCTAssertEqual(newSeason1, season1)
+        
+        // desigualdad
+        XCTAssertNotEqual(season1, season2)
+    }
+    
+    func testSeasonHashtable() {
+        XCTAssertNotNil(season2.hashValue)
+    }
+    
+    func testSeasonFormComparison() {
+        XCTAssertLessThan(season1, season2)
+    }
+    
+    func testSeasonDescription() {
+        //difefencia
+        XCTAssertNotEqual(season1.description, season2.description)
+        
+        // Igualdad
+        XCTAssertEqual(season1.description, "name: Season 1, season 0")
     }
 }

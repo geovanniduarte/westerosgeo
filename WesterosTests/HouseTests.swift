@@ -92,7 +92,9 @@ class HouseTests: XCTestCase {
     }
     
     func testHouseReturnsSortedArrayOfMembers() {
+        starkHouse.add(persons: robb, arya)
         
+        XCTAssertEqual(starkHouse.sortedMembers, [arya, robb])
     }
 }
 

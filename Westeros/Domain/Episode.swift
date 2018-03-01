@@ -26,7 +26,15 @@ final class Episode {
 // MARK: - Proxies
 extension Episode {
     var proxyForEquality: String {
-        return "\(title) \(season!.name)"
+        return "\(season!.name) \(title)"
+    }
+    
+    var proxyForComparison: String {
+        return proxyForEquality.uppercased()
+    }
+    
+    var proxyForDescription: String {
+        return "title: \(title), emisiondate: \(emissionDate.description), season: \(season!.name)"
     }
 }
 
@@ -37,11 +45,23 @@ extension Episode: Hashable {
     }
 }
 
-//Mark: - equatable
+// Mark: - equatable
 extension Episode: Equatable {
     static func ==(lhs: Episode, rhs: Episode) -> Bool {
         return lhs.proxyForEquality == rhs.proxyForEquality
     }
-    
-    
+}
+
+// Mark: - Comparable
+extension Episode: Comparable {
+    static func <(lhs: Episode, rhs: Episode) -> Bool {
+        return lhs.proxyForComparison < rhs.proxyForComparison
+    }
+}
+
+// Mark: - String
+extension Episode: CustomStringConvertible {
+    var description: String {
+        return proxyForDescription
+    }
 }

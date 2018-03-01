@@ -33,7 +33,7 @@ extension House {
         return _members.count
     }
     
-    var sortedMember: [Person] {
+    var sortedMembers: [Person] {
         return _members.sorted()
     }
     
