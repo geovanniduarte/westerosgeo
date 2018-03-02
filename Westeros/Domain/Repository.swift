@@ -8,6 +8,9 @@
 
 import UIKit
 
+enum houseNames : String {
+    case stark, lannister, targaryen
+}
 
 final class Repository {
     static let local = LocalFactory()
@@ -22,13 +25,13 @@ protocol HouseFactory {
     var houses: [House] { get }
     func house(named: String) -> House?
     func houses(filteredBy: Filter) -> [House]
+    func house(namedTwo: houseNames) -> House?
     
     var seasons : [Season] { get }
     func seasons(filteredBy: FilterSeason) -> [Season]
 }
 
 final class LocalFactory: HouseFactory {
-    
     var houses: [House] {
         // Houses creation here
         let starkSigil = Sigil(image: UIImage(named: "codeIsComing.png")!, description: "Lobo Huargo")
@@ -127,11 +130,11 @@ final class LocalFactory: HouseFactory {
     func seasons(filteredBy: FilterSeason) -> [Season] {
         return Repository.local.seasons.filter(filteredBy)
     }
-    /*
-    func house(namedTwo name: String) -> House? {
-        return
+    
+    func house(namedTwo nameTwo: houseNames) -> House? {
+        return house(named: "stark" )
     }
-    */
+    
 }
 
 

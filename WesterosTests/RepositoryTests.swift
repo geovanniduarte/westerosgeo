@@ -58,6 +58,11 @@ class RepositoryTests: XCTestCase {
         let filtered = Repository.local.seasons(filteredBy: {$0.name.contains("Season")})
         XCTAssertEqual(filtered.count, 7)
     }
+
+    
+    func testSeasonFilterinAutocomplete() {
+        let filtered = Repository.local.house(namedTwo: houseNames.stark)
+    }
     
 }
 
