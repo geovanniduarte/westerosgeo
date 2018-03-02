@@ -34,6 +34,10 @@ extension Season {
         }
         self._episodes.insert(episode)
     }
+    
+    var sortedEpisodes: [Episode] {
+        return self._episodes.sorted()
+    }
 }
 
 // Mark: - Proxies
@@ -71,6 +75,6 @@ extension Season: Comparable {
 // Mark: - String descrpition
 extension Season: CustomStringConvertible {
     var description : String {
-        return "name: \(name), season \(count)"
+        return "name: \(name), Episodes: \(count)"
     }
 }

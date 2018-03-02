@@ -10,6 +10,7 @@ import UIKit
 
 let HOUSE_KEY = "HouseKey"
 let HOUSE_DID_CHANGE_NOTIFICATION_NAME = "HouseDidChange"
+let LAST_HOUSE = "LAST_HOUSE"
 
 protocol HouseListViewControllerDelegate {
     func houseListViewController(_ vievController: HouseListViewController, didSelectHouse house: House)
@@ -78,6 +79,28 @@ class HouseListViewController: UITableViewController {
         let notification = Notification(name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME), object: self, userInfo: [HOUSE_KEY : house])
         
         notificationCenter.post(notification)
+    
+        // Guardar las coordenadas (section, row) de la ultima casa seleccionada
+        saveLastSelectedHouse(at: indexPath.row)}
+    
+}
+
+extension HouseListViewController {
+    func saveLastSelectedHouse(at row: Int) {
+        let defaults = UserDefaults.standard
+        defaults.set(row, forKey: LAST_HOUSE)
+        // Por si las moscas
+        defaults.synchronize()
     }
     
+    func lastSelectedHouse() -> House {
+        // Extraer la row del User Defaults
+        let row = UserDefaults.standard.integer(forKey: LAST_HOUSE)
+        
+        // Averiguar la casa de ese row
+        let house = model[row]
+        
+        // Devolverla
+        return house
+    }
 }

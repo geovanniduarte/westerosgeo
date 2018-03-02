@@ -8,9 +8,18 @@
 
 import UIKit
 
+let SEASON_DID_CHANGE_NOTIFICATION_NAME = "SeasonDidChange"
+let SEASON_KEY = "SeasonKey"
+
+
+protocol SeasonListViewControllerDelegate {
+    func seasonListViewController(_ viewController: SeasonListViewController, disSelectSeason season: Season)
+}
+
 class SeasonListViewController: UITableViewController {
     
     var model : [Season]
+    var delegate : SeasonListViewControllerDelegate?
     
     init(model: [Season]) {
         self.model = model
@@ -44,23 +53,28 @@ class SeasonListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let SEASON_CELL_ID = "season_cell"
         
-        let season = model[indexPath.]
+        let season = model[indexPath.row]
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: SEASON_CELL_ID, for: indexPath)
+        var cell = tableView.dequeueReusableCell(withIdentifier: SEASON_CELL_ID)
 
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: SEASON_CELL_ID)
         }
         // sync
-        cell.textLabel?.text = season.name
+        cell?.textLabel?.text = season.name
 
-        return cell
+        return cell!
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let season = model[indexPath.row]
-        let seasonDetailViewController = SeasonDetailViewController(model: season)
-        navigationController?.pushViewController(seasonDetailViewController, animated: true)
+        self.delegate?.seasonListViewController(self, disSelectSeason: season)
+        
+        let notificationCenter = NotificationCenter.default
+        
+        let notification = Notification(name: Notification.Name(SEASON_DID_CHANGE_NOTIFICATION_NAME), object: self, userInfo: [SEASON_KEY: season])
+        
+        notificationCenter.post(notification)
     }
     
 }

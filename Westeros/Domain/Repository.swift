@@ -22,6 +22,9 @@ protocol HouseFactory {
     var houses: [House] { get }
     func house(named: String) -> House?
     func houses(filteredBy: Filter) -> [House]
+    
+    var seasons : [Season] { get }
+    func seasons(filteredBy: FilterSeason) -> [Season]
 }
 
 final class LocalFactory: HouseFactory {
@@ -120,16 +123,15 @@ final class LocalFactory: HouseFactory {
     func houses(filteredBy: Filter) -> [House] {
         return Repository.local.houses.filter(filteredBy)
     }
-     
-    func filtersentence(season: Season) -> Bool{
-        return season.name == ""
-    }
-
+    
     func seasons(filteredBy: FilterSeason) -> [Season] {
         return Repository.local.seasons.filter(filteredBy)
     }
-    
-    
+    /*
+    func house(namedTwo name: String) -> House? {
+        return
+    }
+    */
 }
 
 

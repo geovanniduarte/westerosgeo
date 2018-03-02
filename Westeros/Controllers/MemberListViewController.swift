@@ -14,7 +14,7 @@ class MemberListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     // Mark: - Properties
-    let model: [Person]
+    var model: [Person]
     
     // Mark: - Initialization
     init(model: [Person]) {
@@ -33,11 +33,37 @@ class MemberListViewController: UIViewController {
         
         // Asignamos la fuente de datos
         tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Nos damos de alta
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(houseDidChange), name: Notification.Name(HOUSE_DID_CHANGE_NOTIFICATION_NAME), object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        // nos damos de baja
+        let notificationsCenter = NotificationCenter.default
+        notificationsCenter.removeObserver(self);
+    }
+    
+    @objc func houseDidChange(notification: Notification) {
+        // Extraer el userInfo de la notificacion
+        guard let info = notification.userInfo else {
+            return
+        }
+        // Sacar la casa del userInfo
+        let house = info[HOUSE_KEY] as? House
+        
+        // Actualizar el modelo
+        model = house!.sortedMembers
+        tableView.reloadData()
     }
 }
 
 // MARK: - UITableViewDataSource
-extension MemberListViewController: UITableViewDataSource {
+extension MemberListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.count
@@ -58,6 +84,13 @@ extension MemberListViewController: UITableViewDataSource {
         
         // Devolver la celda
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let member = model[indexPath.row]
+        let memberDetailViewController = MemberDetailViewController(model:member)
+        navigationController?.pushViewController(memberDetailViewController, animated: true)
+        
     }
 
 }

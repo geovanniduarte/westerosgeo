@@ -22,17 +22,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         
-        // Crear el modelo
+        // Crear los modelo
         let houses = Repository.local.houses
+        let seasons = Repository.local.seasons
 
-        // Creamos la tabla
+        // Creamos la tabla de houses
         let houseListViewController = HouseListViewController(model: houses)
         let houseDetailViewControler = HouseDetailViewController(model: houses.first!)
-        
         houseListViewController.delegate = houseDetailViewControler
         
+        // Creamos la tabla de seasons
+        let seasonListViewController = SeasonListViewController(model: seasons)
+        let seasonDetailViewController = SeasonDetailViewController(model: seasons.first!)
+        seasonListViewController.delegate = seasonDetailViewController
+        
+        let masterViewController : UITabBarController = UITabBarController()
+        masterViewController.viewControllers = [houseListViewController.wrappedInNavigation(), seasonListViewController.wrappedInNavigation()]
+        
+        
         let splitViewController: UISplitViewController = UISplitViewController()
-        splitViewController.viewControllers = [houseListViewController.wrappedInNavigation(), houseDetailViewControler.wrappedInNavigation()]
+        splitViewController.viewControllers = [masterViewController, houseDetailViewControler.wrappedInNavigation()] //OJO MIRAR SI LO PONGO EN WRAP
+        
+        // Indicamos que split sea delegado de tabbar
+        masterViewController.delegate = splitViewController
         
         // Asignamos el rootVC
         window?.rootViewController = splitViewController

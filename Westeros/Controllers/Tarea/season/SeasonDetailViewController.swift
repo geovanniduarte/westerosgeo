@@ -35,16 +35,11 @@ class SeasonDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         syncViewModel()
+        initUI()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    func syncViewModel() {
-        name.text = "\(model.name) "
-        launchDate.text = model.launchDay.description
-        episodesCount.text = model.count
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,5 +47,27 @@ class SeasonDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // Mark: - UI
+    func initUI() {
+        let episodesButon = UIBarButtonItem(title: "Episodes", style: .plain , target: self, action: #selector(displayEpisodes))
+        navigationItem.rightBarButtonItems = [episodesButon]
+    }
+
+    func syncViewModel() {
+        name.text = "\(model.name) "
+        launchDate.text = model.launchDay.description
+        episodesCount.text = model.count.description
+    }
     
+    @objc func displayEpisodes() {
+        let episodeListViewController = EpisodeListViewController(model: model.sortedEpisodes)
+        navigationController?.pushViewController(episodeListViewController, animated: true)
+    }
+}
+
+extension SeasonDetailViewController : SeasonListViewControllerDelegate {
+    func seasonListViewController(_ viewController: SeasonListViewController, disSelectSeason season: Season) {
+        self.model = season
+        syncViewModel()
+    }
 }

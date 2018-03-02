@@ -11,10 +11,11 @@ import UIKit
 class EpisodeDetailViewController: UIViewController {
     
     // Mark: Outlets
-    @IBOutlet weak var lbltitle: UILabel!
-    @IBOutlet weak var lblemissionDate: UILabel!
-    @IBOutlet weak var lblseason: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
     
+    @IBOutlet weak var lblEmissionDate: UILabel!
+    
+    @IBOutlet weak var lblSeason: UILabel!
     // Mark: model
     let model : Episode
     
@@ -32,7 +33,6 @@ class EpisodeDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -47,9 +47,9 @@ class EpisodeDetailViewController: UIViewController {
     }
     
     func syncViewModel() {
-        lbltitle.text = model.title
-        lblemissionDate.text = model.emissionDate.description
-        lblseason.text = model.season?.description
+        lblTitle.text = model.title
+        lblEmissionDate.text = model.emissionDate.description
+        lblSeason.text = model.season?.description
     }
 
 }
