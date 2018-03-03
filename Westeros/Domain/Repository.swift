@@ -132,7 +132,7 @@ final class LocalFactory: HouseFactory {
     }
     
     func house(namedTwo nameTwo: houseNames) -> House? {
-        return house(named: "stark" )
+        return houses.first //house(named: String)
     }
     
 }
