@@ -11,10 +11,13 @@ import UIKit
 class MemberDetailViewController: UIViewController {
     
     // Mark: - Outlets
+
     @IBOutlet weak var lblName: UILabel!
     
+   
     @IBOutlet weak var lblAlias: UILabel!
     
+
     @IBOutlet weak var lblHouse: UILabel!
     
     override func viewDidLoad() {

@@ -29,12 +29,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Creamos la tabla de houses
         let houseListViewController = HouseListViewController(model: houses)
         let houseDetailViewControler = HouseDetailViewController(model: houses.first!)
-        houseListViewController.delegate = houseDetailViewControler
-        
+        if  UIDevice.current.userInterfaceIdiom == .pad {
+            houseListViewController.delegate = houseDetailViewControler
+        } else {
+            houseListViewController.delegate = houseListViewController
+        }
         // Creamos la tabla de seasons
         let seasonListViewController = SeasonListViewController(model: seasons)
         let seasonDetailViewController = SeasonDetailViewController(model: seasons.first!)
-        seasonListViewController.delegate = seasonDetailViewController
+        if  UIDevice.current.userInterfaceIdiom == .pad {
+            seasonListViewController.delegate = seasonDetailViewController
+        } else {
+            seasonListViewController.delegate = seasonListViewController
+        }
         
         let masterViewController : UITabBarController = UITabBarController()
         masterViewController.viewControllers = [houseListViewController.wrappedInNavigation(), seasonListViewController.wrappedInNavigation()]

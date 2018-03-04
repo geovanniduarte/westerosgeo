@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 extension UIViewController {
     func wrappedInNavigation() -> UINavigationController {
         return UINavigationController(rootViewController: self)
@@ -25,7 +27,10 @@ extension UISplitViewController : UITabBarControllerDelegate {
             detailViewController = (masterViewController as! SeasonListViewController).delegate as! UIViewController
             
         }
-        self.viewControllers[1] =  detailViewController.wrappedInNavigation()
+        let count = self.viewControllers.count
+        if  UIDevice.current.userInterfaceIdiom == .pad {
+             self.viewControllers[1] =  detailViewController.wrappedInNavigation()
+        }
     }
 }
 

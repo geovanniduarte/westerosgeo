@@ -12,14 +12,14 @@ let SEASON_DID_CHANGE_NOTIFICATION_NAME = "SeasonDidChange"
 let SEASON_KEY = "SeasonKey"
 
 
-protocol SeasonListViewControllerDelegate: class {
+protocol SeasonListViewControllerDelegate {
     func seasonListViewController(_ viewController: SeasonListViewController, disSelectSeason season: Season)
 }
 
 class SeasonListViewController: UITableViewController {
     
     var model : [Season]
-    weak var delegate : SeasonListViewControllerDelegate?
+    var delegate : SeasonListViewControllerDelegate?
     
     init(model: [Season]) {
         self.model = model
@@ -76,5 +76,14 @@ class SeasonListViewController: UITableViewController {
         
         notificationCenter.post(notification)
     }
+    
+}
+
+extension SeasonListViewController : SeasonListViewControllerDelegate {
+    func seasonListViewController(_ viewController: SeasonListViewController, disSelectSeason season: Season) {
+        let seasonDetailViewController = SeasonDetailViewController(model: season)
+        navigationController?.pushViewController(seasonDetailViewController, animated: true)
+    }
+    
     
 }

@@ -75,6 +75,6 @@ extension Season: Comparable {
 // Mark: - String descrpition
 extension Season: CustomStringConvertible {
     var description : String {
-        return "name: \(name), Episodes: \(count)"
+        return " \(name), Episodes: \(count)"
     }
 }

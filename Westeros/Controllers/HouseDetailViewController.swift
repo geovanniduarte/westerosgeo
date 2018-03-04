@@ -11,13 +11,14 @@ import UIKit
 class HouseDetailViewController: UIViewController {
 
     // Mark: - Outlets
+
     @IBOutlet weak var houseNameLabel: UILabel!
-    @IBOutlet weak var wordsLabel: UILabel!
-    @IBOutlet weak var sigilImageView: UIImageView!
     
+    @IBOutlet weak var sigilImageView: UIImageView!
     // Mark: - Properties
     var model: House
     
+    @IBOutlet weak var wordsLabel: UILabel!
     // Mark: - Initialization
     init(model: House) {
         // Primero, limpias tu propio desorder
@@ -42,6 +43,7 @@ class HouseDetailViewController: UIViewController {
     // Mark: - Sync
     func syncModelWithView() {
         // Model -> View
+        model.name
         houseNameLabel.text = "House \(model.name)"
         sigilImageView.image = model.sigil.image
         wordsLabel.text = model.words

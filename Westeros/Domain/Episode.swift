@@ -34,7 +34,7 @@ extension Episode {
     }
     
     var proxyForDescription: String {
-        return "title: \(title), emisiondate: \(emissionDate.description), season: \(season!.name)"
+        return "\(title), season: \(season!.name)"
     }
 }
 

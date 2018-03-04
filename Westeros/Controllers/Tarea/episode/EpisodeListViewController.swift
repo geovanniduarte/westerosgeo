@@ -71,10 +71,11 @@ extension EpisodeListViewController : UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let EPISODE_CELL_ID = "episode_cell"
         let episode = model[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: EPISODE_CELL_ID) ?? UITableViewCell(style: .default, reuseIdentifier: EPISODE_CELL_ID)
+        let cell = tableView.dequeueReusableCell(withIdentifier: EPISODE_CELL_ID) ?? UITableViewCell(style: .subtitle, reuseIdentifier: EPISODE_CELL_ID)
         
         // sync cell
         cell.textLabel?.text = episode.description
+        cell.detailTextLabel?.text = episode.emissionDate.formattedDate()
         return cell
     }
     
