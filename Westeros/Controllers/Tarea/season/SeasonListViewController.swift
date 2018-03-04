@@ -12,14 +12,14 @@ let SEASON_DID_CHANGE_NOTIFICATION_NAME = "SeasonDidChange"
 let SEASON_KEY = "SeasonKey"
 
 
-protocol SeasonListViewControllerDelegate {
+protocol SeasonListViewControllerDelegate: class {
     func seasonListViewController(_ viewController: SeasonListViewController, disSelectSeason season: Season)
 }
 
 class SeasonListViewController: UITableViewController {
     
     var model : [Season]
-    var delegate : SeasonListViewControllerDelegate?
+    weak var delegate : SeasonListViewControllerDelegate?
     
     init(model: [Season]) {
         self.model = model

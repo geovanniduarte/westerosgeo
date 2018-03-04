@@ -12,14 +12,14 @@ let HOUSE_KEY = "HouseKey"
 let HOUSE_DID_CHANGE_NOTIFICATION_NAME = "HouseDidChange"
 let LAST_HOUSE = "LAST_HOUSE"
 
-protocol HouseListViewControllerDelegate {
+protocol HouseListViewControllerDelegate: class {
     func houseListViewController(_ vievController: HouseListViewController, didSelectHouse house: House)
 }
 class HouseListViewController: UITableViewController {
     
     // Mark: - Properties
     let model: [House]
-    var delegate: HouseListViewControllerDelegate?
+    weak var delegate: HouseListViewControllerDelegate?
     
     init(model: [House]) {
         self.model = model

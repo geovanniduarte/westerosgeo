@@ -51,6 +51,6 @@ class SeasonTests: XCTestCase {
         XCTAssertNotEqual(season1.description, season2.description)
         
         // Igualdad
-        XCTAssertEqual(season1.description, "name: Season 1, Episodes: 2")
+        XCTAssertEqual(season1.description, "name: Season 1, Episodes: 0")
     }
 }

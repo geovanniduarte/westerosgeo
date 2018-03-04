@@ -228,13 +228,6 @@
 			path = episode;
 			sourceTree = "<group>";
 		};
-		BC6C4A7F2049A7CA006F3FD1 /* extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = extensions;
-			sourceTree = "<group>";
-		};
 		BC6C4A842049EFB9006F3FD1 /* member */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				BC6C4A842049EFB9006F3FD1 /* member */,
-				BC6C4A7F2049A7CA006F3FD1 /* extensions */,
 				BC57BED32048BB3B00375E0C /* episode */,
 				BC57BED22048BB2700375E0C /* season */,
 			);

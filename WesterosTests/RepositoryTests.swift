@@ -62,6 +62,7 @@ class RepositoryTests: XCTestCase {
     
     func testSeasonFilterinAutocomplete() {
         let filtered = Repository.local.house(namedTwo: houseNames.stark)
+        XCTAssertNotNil(filtered)
     }
     
 }

@@ -55,7 +55,7 @@ class SeasonDetailViewController: UIViewController {
 
     func syncViewModel() {
         name.text = "\(model.name) "
-        launchDate.text = model.launchDay.description
+        launchDate.text = model.launchDay.formattedDate()
         episodesCount.text = model.count.description
     }
     

@@ -48,7 +48,7 @@ class EpisodeDetailViewController: UIViewController {
     
     func syncViewModel() {
         lblTitle.text = model.title
-        lblEmissionDate.text = model.emissionDate.description
+        lblEmissionDate.text = model.emissionDate.formattedDate()
         lblSeason.text = model.season?.description
     }
 

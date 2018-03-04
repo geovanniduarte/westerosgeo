@@ -28,3 +28,12 @@ extension UISplitViewController : UITabBarControllerDelegate {
         self.viewControllers[1] =  detailViewController.wrappedInNavigation()
     }
 }
+
+extension Date {
+    func formattedDate() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        let date = dateFormatter.string(from: self)
+        return date
+    }
+}

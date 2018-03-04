@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum houseNames : String {
+enum HouseName : String {
     case stark, lannister, targaryen
 }
 
@@ -25,7 +25,7 @@ protocol HouseFactory {
     var houses: [House] { get }
     func house(named: String) -> House?
     func houses(filteredBy: Filter) -> [House]
-    func house(namedTwo: houseNames) -> House?
+    func house(namedTwo: HouseName) -> House?
     
     var seasons : [Season] { get }
     func seasons(filteredBy: FilterSeason) -> [Season]
@@ -118,6 +118,7 @@ final class LocalFactory: HouseFactory {
     }
     
     func house(named name: String) -> House? {
+        
         let house = houses.filter{ $0.name.uppercased() == name.uppercased() }.first
         //let house = houses.first{ $0.name.uppercased() == name.uppercased() }
         return house
@@ -131,8 +132,8 @@ final class LocalFactory: HouseFactory {
         return Repository.local.seasons.filter(filteredBy)
     }
     
-    func house(namedTwo nameTwo: houseNames) -> House? {
-        return houses.first //house(named: String)
+    func house(namedTwo name: HouseName) -> House? {
+        return house(named: name.rawValue)
     }
     
 }
